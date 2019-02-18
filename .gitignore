@@ -1,0 +1,7 @@
+out/
+backup/
+temp/
+.vscode/
+out.zip
+log
+rom_charts.sql

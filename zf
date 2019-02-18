@@ -1,0 +1,11 @@
+out2.txt
+rom_ver,app_type,app_ver,h_mode,h_sn,net_type,appmode,mac,mem,tdisk,fdisk,tver,ok,utime,android_id,router_ssid,year,mounth,day,hour
+
+out3.txt
+rom_ver,app_type,app_ver,h_mode,h_sn,net_type,appmode,mac,mem,tdisk,fdisk,rt,tver,ok,dtime,year,mounth,day,hour
+
+out4.txt
+rom_ver,app_type,app_ver,h_mode,h_sn,net_type,appmode,mac,mem,tdisk,fdisk,tver,ok,d_addr,p_size,dtime,p_type,year,mounth,day,hour
+
+out5.txt
+rom_ver,app_type,app_ver,h_mode,h_sn,net_type,appmode,mac,mem,tdisk,fdisk,rtime,tver,tsize,utype,ok,i_type,itime,p_type,year,mounth,day,hour
