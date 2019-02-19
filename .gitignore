@@ -5,3 +5,4 @@ temp/
 out.zip
 log
 rom_charts.sql
+httpDownload.py
