@@ -1,12 +1,14 @@
-#coding:utf-8
+# coding:utf-8
 #!/usr/bin/python
-from fun.fun_date_util import yesterday_str
+from fun_constant import *
+from fun_date_util import yesterday_str
 import pymysql as msql
 
 host = 'localhost'
 user = 'rom'
 password = '123456'
 database = 'rom_charts'
+
 
 def mysql_inserted(table_name):
     print('updated rom_table_name:' + table_name)
@@ -23,6 +25,7 @@ def mysql_inserted(table_name):
     print(rowcount)
     return rowcount
 
+
 def mysql_query(sql):
     print('mysql_query sql:' + sql)
     db = msql.connect(host, user, password, database, charset='utf8')
@@ -37,6 +40,7 @@ def mysql_query(sql):
     if (rowcount > 0):
         return True
     return False
+
 
 def mysql_fetchall(sql):
     print('mysql_fetchall sql:' + sql)
@@ -53,6 +57,7 @@ def mysql_fetchall(sql):
     db.close()
     return results
 
+
 def mysql_execute(sql):
     print('mysql_execute sql:' + sql)
     db = msql.connect(host, user, password, database, charset='utf8')
@@ -63,6 +68,7 @@ def mysql_execute(sql):
     except:
         db.rollback()
     db.close()
+
 
 def mysql_group_count(sql):
     print('mysql_group_count sql:' + sql)
@@ -79,4 +85,30 @@ def mysql_group_count(sql):
         db.rollback()
     db.close()
     print('rowcount , gcount :' + str(rowcount) + ',' + str(gcount))
-    return rowcount, gcount        
+    return rowcount, gcount
+
+
+def mysql_create_table(tablename, create_sql):
+    exist_sql = 'show tables like \'' + tablename + '\';'
+    print(exist_sql)
+    db = msql.connect(host, user, password, database, charset='utf8')
+    cursor = db.cursor()
+    try:
+        cursor.execute(exist_sql)
+        results = cursor.fetchall()
+        print(len(results))
+        if (len(results) == 0):
+            cursor.execute(create_sql)
+            print('create table ' + tablename + ' sucess!')
+        else:
+            print('table ' + tablename + ' already exist!')
+        db.commit()
+    except:
+        print('create table ' + tablename + ' failed!')
+    db.close()
+
+
+if __name__ == '__main__':
+    mysql_create_table('debug_process', debug_process_create_sql)
+    mysql_create_table('debug_sdk_download_install',
+                       debug_sdk_download_install_create_sql)
