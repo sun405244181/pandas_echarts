@@ -8,14 +8,14 @@ import pandas as pd
 
 '''
 select ok, count(distinct mac) from tv_upgrade_info where year='2019' and month='02' and day in ('16', '17', '18') and app_type='1010' and app_ver > '4030101' group by ok;
-0	-1	    57491
-1	9999	815254
-2	200	    814877
+0   -1      57491
+1   9999    815254
+2   200     814877
 
 select ok, count(distinct mac) from tv_upgrade_info where year='2019' and month='02' and day in ('15', '16', '17', '18') and app_type='1010' and app_ver > '4030101' group by ok;
-0	200	    846088
-2	9999	845882
-1	-1	    71907
+0   200	    846088
+2   9999    845882
+1   -1      71907
 '''
 
 
