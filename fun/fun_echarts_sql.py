@@ -1,7 +1,7 @@
 # coding:utf-8
 #!/usr/bin/python
-from fun_constant import *
-from fun_date_util import yesterday_str
+from fun.fun_constant import *
+from fun.fun_date_util import yesterday_str
 import pymysql as msql
 
 host = 'localhost'
