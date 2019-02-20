@@ -1,26 +1,28 @@
-#coding:utf-8
+# coding:utf-8
 #!/usr/bin/python
 
 from fun.fun_echarts_sql import mysql_fetchall
 from fun.fun_email import fun_sendmail
+import sys
 import time
 
 DEBUG = False
 
+
 def sdkmanager():
 
-    install_list = ['com.audiorecoder.demo', \
-                    'com.avc_mr.datacollectionandroid', \
-                    'com.bestv.mishitong.gw', \
-                    'com.example.com.bestv.ott.api', \
-                    'com.example.dialogdemo', \
-                    'com.funshion.publicity', \
-                    'com.kuyun.common.androidtv', \
-                    'com.kuyun.common.identifer', \
-                    'com.qiyivideo.fengxing.tvapi', \
-                    'tv.fun.orange', \
-                    'tv.fun.sdkmanager', \
-                    'com.gzads.tvac', \
+    install_list = ['com.audiorecoder.demo',
+                    'com.avc_mr.datacollectionandroid',
+                    'com.bestv.mishitong.gw',
+                    'com.example.com.bestv.ott.api',
+                    'com.example.dialogdemo',
+                    'com.funshion.publicity',
+                    'com.kuyun.common.androidtv',
+                    'com.kuyun.common.identifer',
+                    'com.qiyivideo.fengxing.tvapi',
+                    'tv.fun.orange',
+                    'tv.fun.sdkmanager',
+                    'com.gzads.tvac',
                     'com.funshion.tvdlnarender']
 
     DOWNLOAD_RATE = 0.99
@@ -70,7 +72,7 @@ def sdkmanager():
 
         sql = 'select app, sum(download_start), sum(download_sucess), sum(install_sucess) from sdk_download_install where app=\'' + task + '\';'
         counts = mysql_fetchall(sql)
-        
+
         download_rate_str = ''
         install_rate_str = ''
 
@@ -96,13 +98,14 @@ def sdkmanager():
                             <td align="center">' + task + '</td>\
                             <td align="center">' + download_rate_str + '</td>\
                             <td align="center">' + install_rate_str + '</td>\
-                        </tr>'    
+                        </tr>'
 
     if (download_install_table_head):
         content += table_end()
     if (warning):
         content += '<a href="http://172.17.5.117:8080/ECharts/sdkmanager.html">http://172.17.5.117:8080/ECharts/sdkmanager.html</a>'
         fun_sendmail(subject, content)
+
 
 def dlna():
     subject = 'ROM统计上报预警-投屏'
@@ -130,7 +133,7 @@ def dlna():
                             <th width="20%"></th>\
                             <th width="10%">基准值</th>\
                             <th width="10%">实际值</th>\
-                        </tr>'       
+                        </tr>'
 
     if (dlna_dau_rs[0] or DEBUG):
         content += '<tr>\
@@ -143,10 +146,9 @@ def dlna():
                         <td align="center">AIRPLAY</td>\
                         <td align="center">' + str(airlpay_dau_rs[1]) + '</td>\
                         <td align="center">' + str(airlpay_dau_rs[2]) + '</td>\
-                    </tr>'                    
+                    </tr>'
     if (dlna_dau_rs[0] or airlpay_dau_rs[0] or DEBUG):
         content += '</table></br></br></br>'
- 
 
     '''
     投屏成功率
@@ -181,7 +183,7 @@ def dlna():
                             <th width="20%"></th>\
                             <th width="10%">基准值</th>\
                             <th width="10%">实际值</th>\
-                        </tr>'       
+                        </tr>'
 
     if (dlna_rate_rs[0] or DEBUG):
         content += '<tr>\
@@ -194,26 +196,31 @@ def dlna():
                         <td align="center">AIRPLAY</td>\
                         <td align="center">' + '{:.2%}'.format(airplay_rate_rs[1]) + '</td>\
                         <td align="center">' + '{:.2%}'.format(airplay_rate_rs[2]) + '</td>\
-                    </tr>'                    
+                    </tr>'
     if (dlna_rate_rs[0] or airplay_rate_rs[0] or DEBUG):
-        content += '</table></br></br></br>'    
-    
+        content += '</table></br></br></br>'
+
     if (warning):
         content += '<a href="http://172.17.5.117:8080/ECharts/dlna.html">http://172.17.5.117:8080/ECharts/dlna.html</a>'
         fun_sendmail(subject, content)
 
+
 def send(results):
-    count = results[0][0]
-    date = results[0][1]
-    min_count = count
+    today_count = results[0][0]
+    today = results[0][1]
+    total = len(results)
+    index = 0
+    min_count = sys.maxsize
     for result in results:
-        if (date == result[1]):
+        index += 1
+        if (today == result[1]):
             continue
-        if (result[0] < min_count):
+        if (result[0] < min_count and index < total):
             min_count = result[0]
-    if (count < min_count):
-        return True, min_count, count
-    return False, min_count, count
+    if (today_count < min_count):
+        return True, min_count, today_count
+    return False, min_count, today_count
+
 
 def html_head():
     return '<!DOCTYPE html>\
@@ -231,9 +238,11 @@ def html_head():
             </head>\
             <body>'
 
+
 def html_end():
     return '</body>\
             </html>'
+
 
 def table_head(c1, c2, c3):
     return '<table id=\'tab\' style="width: 80%; height: auto; table-layout: fixed;" border="1" bordercolor="black" cellspacing="0" cellpadding="6">\
@@ -242,6 +251,7 @@ def table_head(c1, c2, c3):
                     <th width="20%">' + c2 + '</th>\
                     <th width="20%">' + c3 + '</th>\
                 </tr>'
+
 
 def table_end():
     return '</table></br>'
