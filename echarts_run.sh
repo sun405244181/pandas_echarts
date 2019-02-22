@@ -20,4 +20,5 @@ fi
 /home/sunwc/.pyenv/shims/python bt.py > temp/log.bt
 /home/sunwc/.pyenv/shims/python log.py > temp/log.log
 #/home/sunwc/.pyenv/shims/python report.py > temp/report.log
+/home/sunwc/.pyenv/shims/python debug_sdkmanager.py > temp/debug_sdkmanager.log
 

@@ -20,7 +20,7 @@ helper_cast_screen_columns = ["stm", "sip", "sid", "app_type", "ctime", "app_ver
 rom_recovery_columns = ['rom_ver', 'app_type', 'app_ver',
                         'h_mode', 'mac', 'fdisk', 'chip_type', 'recovery_info', 'emmc']
 # 20181129之前
-#tv_upgrade_info_columns = ['stm',"sip","rom_ver","sid","app_type","ctime","app_ver","order","h_mode","h_sn","net_type","appmode","mac","mem","tdisk","fdisk","tver","ok","utime",'lng','lat',"year","mounth","day","hour"]
+# tv_upgrade_info_columns = ['stm',"sip","rom_ver","sid","app_type","ctime","app_ver","order","h_mode","h_sn","net_type","appmode","mac","mem","tdisk","fdisk","tver","ok","utime",'lng','lat',"year","mounth","day","hour"]
 # 20181129及以后
 tv_upgrade_info_columns = ['stm', "sip", "rom_ver", "sid", "app_type", "ctime", "app_ver", "order", "h_mode", "h_sn", "net_type", "appmode",
                            "mac", "mem", "tdisk", "fdisk", "tver", "ok", "utime", 'lng', 'lat', 'android_id', 'router_ssid', "year", "mounth", "day", "hour"]
@@ -52,8 +52,22 @@ debug_sdk_download_install_create_sql = "CREATE TABLE `debug_sdk_download_instal
                                                                          `app_name` varchar(40) DEFAULT NULL, \
                                                                          `app_ver` varchar(40) DEFAULT NULL, \
                                                                          `download_start` int(11) DEFAULT NULL, \
+                                                                         `add_task_secuss` int(11) DEFAULT NULL, \
                                                                          `download_sucess` int(11) DEFAULT NULL, \
                                                                          `install_sucess` int(11) DEFAULT NULL, \
+                                                                         `date` int(11) DEFAULT NULL, \
+                                                                         PRIMARY KEY(`id`) \
+                                                                         )"
+
+debug_sdk_p2p_error_create_sql = "CREATE TABLE `debug_sdk_p2p_error` (`id` int(11) NOT NULL AUTO_INCREMENT, \
+                                                                         `h_mode` varchar(100) DEFAULT NULL, \
+                                                                         `rom_ver` varchar(40) DEFAULT NULL, \
+                                                                         `sdk_ver` varchar(40) DEFAULT NULL, \
+                                                                         `app` varchar(80) DEFAULT NULL, \
+                                                                         `error_code` int(11) DEFAULT NULL, \
+                                                                         `count` int(11) DEFAULT NULL,  \
+                                                                         `app_name` varchar(40) DEFAULT NULL, \
+                                                                         `app_ver` varchar(40) DEFAULT NULL, \
                                                                          `date` int(11) DEFAULT NULL, \
                                                                          PRIMARY KEY(`id`) \
                                                                          )"
