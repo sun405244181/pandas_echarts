@@ -121,7 +121,7 @@ def txt_add_task_sucess():
     df.fillna(0, inplace=True)
 
     df.drop_duplicates(subset=['mac', 'tver'], keep='last', inplace=True)
-    df_valid = df[(df.ok.isin([0, 1])) & (df['mac'] != 0)]
+    df_valid = df[(df.ok.isin([0, 1, 100])) & (df['mac'] != 0)]
     df_distinct_mac = del_old_mac(df_valid, 'addTaskSucess')
     if (len(df_distinct_mac) == 0):
         return
@@ -164,7 +164,7 @@ def txt_download_sucess():
     df.fillna(0, inplace=True)
 
     df.drop_duplicates(subset=['mac', 'tver', 'ok'], keep='last', inplace=True)
-    df_valid = df[(df.ok.isin([1, 1000])) & (df['mac'] != 0)]
+    df_valid = df[(df.ok.isin([1, 1000, 200])) & (df['mac'] != 0)]
 
     df_distinct_mac = del_old_mac(df_valid, 'downloadSucess')
     if (len(df_distinct_mac) == 0):
