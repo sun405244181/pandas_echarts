@@ -131,7 +131,10 @@ def txt_download_start():
             continue
     save_batch(save_macs, 'downloadStart')
     save_macs.clear()
-    for row in df_from_group.itertuples():
+
+    tvers = df_distinct_mac.drop_duplicates(
+        subset=['tver'], keep='last', inplace=True)
+    for row in tvers.itertuples():
         # print(row)
         duplicates_mac(debug_task_top_dir + row.tver + '/' + 'downloadStart')
 
@@ -187,7 +190,10 @@ def txt_add_task_sucess():
             continue
     save_batch(save_macs, 'addTaskSucess')
     save_macs.clear()
-    for row in df_from_group.itertuples():
+
+    tvers = df_distinct_mac.drop_duplicates(
+        subset=['tver'], keep='last', inplace=True)
+    for row in tvers.itertuples():
         # print(row)
         duplicates_mac(debug_task_top_dir + row.tver + '/' + 'addTaskSucess')
 
@@ -245,7 +251,10 @@ def txt_download_sucess():
             continue
     save_batch(save_macs, 'downloadSucess')
     save_macs.clear()
-    for row in df_from_group.itertuples():
+
+    tvers = df_distinct_mac.drop_duplicates(
+        subset=['tver'], keep='last', inplace=True)
+    for row in tvers.itertuples():
         # print(row)
         duplicates_mac(debug_task_top_dir + row.tver + '/' + 'downloadSucess')
 
@@ -304,9 +313,13 @@ def txt_install_sucess():
             continue
     save_batch(save_macs, 'installSucess')
     save_macs.clear()
-    for row in df_from_group.itertuples():
+
+    tvers = df_distinct_mac.drop_duplicates(
+        subset=['tver'], keep='last', inplace=True)
+    for row in tvers.itertuples():
         # print(row)
         duplicates_mac(debug_task_top_dir + row.tver + '/' + 'installSucess')
+    print('debug sdkmanager end...')
 
 
 ############################################################P2P#######################################################################
