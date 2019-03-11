@@ -7,3 +7,5 @@ log
 rom_charts.sql
 httpDownload.py
 fun/fun_email.py
+fun/__pycache__/
+__pycache__/
